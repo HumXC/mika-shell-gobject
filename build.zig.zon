@@ -1,0 +1,21 @@
+.{
+    .name = .mika_shell_gobject,
+
+    .version = "0.0.0",
+
+    .fingerprint = 0x2aff63b9a05d151f,
+
+    .minimum_zig_version = "0.14.0",
+
+    .dependencies = .{
+        .@"gobject-codegen" = .{
+            .url = "git+https://github.com/ianprime0509/zig-gobject#1d15a78aff84a4a7b94e08e2f742d2f6c51ae7e0",
+            .hash = "gobject_codegen-0.3.0-B33qzde7BgAlRTwcsLya724pFaSkmIDNtmX6iqpEctWZ",
+        },
+    },
+
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+    },
+}
