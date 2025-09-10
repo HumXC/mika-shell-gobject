@@ -5,16 +5,16 @@ pub fn build(b: *std.Build) void {
     const codegen_exe_run = b.addRunArtifact(codegen_exe); 
     const gir_dir = std.process.getEnvVarOwned(b.allocator, "GIR_DIR") catch @panic("OOM");
     const gir_files_path = blk: {
-        var result = std.ArrayList([]const u8).init(b.allocator);
+        var result = std.ArrayList([]const u8){};
         if (gir_dir.len > 0) {
             var it = std.mem.splitAny(u8, gir_dir, ":");
 
             while (it.next()) |dir| {
-                result.append(dir) catch @panic("OOM");
+                result.append(b.allocator, dir) catch @panic("OOM");
             }
         }
-        result.append("./result-dev/share/gir-1.0/") catch @panic("OOM");
-        break :blk result.toOwnedSlice() catch @panic("OOM");
+        result.append(b.allocator, "./result-dev/share/gir-1.0/") catch @panic("OOM");
+        break :blk result.toOwnedSlice(b.allocator) catch @panic("OOM");
     };
     const codegen_modules: []const []const u8 = &.{
         "Gio-2.0",

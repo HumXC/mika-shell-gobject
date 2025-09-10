@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   mkShell,
   gtk4,
   webkitgtk_6_0,
@@ -11,7 +12,6 @@
   harfbuzz,
   libsoup_3,
   libxslt,
-  zig,
   ...
 }: let
   gir_dir = lib.makeSearchPathOutput "share/gir-1.0" "share/gir-1.0" [
@@ -25,6 +25,7 @@
     harfbuzz.dev
     libsoup_3.dev
   ];
+  zig = pkgs.zig_0_15;
 in
   mkShell {
     buildInputs = [libxslt zig];
